@@ -22,7 +22,11 @@ export const validatePerson = (data: unknown) => {
     personSchema.parse(data);
   } catch (err) {
     if (err instanceof z.ZodError) {
-      console.log('La validación falló:', err.errors);
+      throw {
+        status: 400,
+        message: 'Dato inválido',
+        errors: err.errors,
+      };
     }
   }
 };
