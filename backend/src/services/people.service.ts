@@ -31,10 +31,10 @@ export class PeopleService {
   }
 
   static updatePerson(id: number, data: Partial<Person>) {
-    PeopleModel.update(id, data);
+    return PeopleModel.update(id, data);
   }
 
   static deletePerson(id: number) {
-    PeopleModel.delete(id);
+    return PeopleModel.delete(id);
   }
 }

@@ -21,7 +21,7 @@ export class PeopleModel {
       dateOfBirth,
       nationality,
       age,
-      canVote ? 1 : 0
+      Number(canVote)
     );
   }
 
@@ -39,20 +39,24 @@ export class PeopleModel {
     const stmt = db.prepare(
       `UPDATE people SET name = ?, surname = ?, fullName = ?, dateOfBirth = ?, nationality = ?, age = ?, canVote = ? WHERE id = ?`
     );
-    stmt.run(
+    const result = stmt.run(
       data.name,
       data.surname,
       data.fullName,
       data.dateOfBirth,
       data.nationality,
       data.age,
-      data.canVote ? 1 : 0,
+      Number(data.canVote),
       id
     );
+
+    return result.changes;
   }
 
   static delete(id: number) {
     const stmt = db.prepare('DELETE FROM people WHERE id = ?');
-    stmt.run(id);
+    const result = stmt.run(id);
+
+    return result.changes;
   }
 }
