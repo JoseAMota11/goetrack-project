@@ -1,4 +1,5 @@
 import db from '../config/db';
+import { Person } from '../utils/validations';
 
 export class PeopleModel {
   static create(
@@ -26,10 +27,7 @@ export class PeopleModel {
     return stmt.get(id);
   }
 
-  static update(
-    id: number,
-    data: { name: string; surname: string; age: number }
-  ) {
+  static update(id: number, data: Partial<Person>) {
     const stmt = db.prepare(
       `UPDATE people SET name = ?, surname = ?, age = ? WHERE id = ?`
     );
