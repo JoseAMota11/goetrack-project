@@ -10,7 +10,7 @@ db.prepare(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     surname TEXT NOT NULL,
-    fullname TEXT NOT NULL,
+    fullName TEXT NOT NULL,
     dateOfBirth TEXT NOT NULL,
     nationality TEXT NOT NULL,
     age INTEGER NOT NULL,
