@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Use the latest ECMAScript features.
+    "module": "ESNext", // Use ESM for module system.
+    "moduleResolution": "Node", // Resolve modules as Node.js does.
+    "rootDir": "./src", // Root directory for TypeScript files.
+    "strict": true, // Enable strict type-checking options.
+    "esModuleInterop": true, // Enable interoperability with CommonJS modules.
+    "skipLibCheck": true, // Skip type checking of declaration files.
+    "allowSyntheticDefaultImports": true // Allow default imports for CommonJS modules.
+  },
+  "include": ["src/**/*"], // Specify which files to compile.
+  "exclude": ["node_modules", "dist"] // Exclude unnecessary files.
+}
