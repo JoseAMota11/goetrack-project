@@ -1,3 +1,9 @@
-const MESSAGE: string = 'Hello, World!';
+import express from 'express';
 
-console.log(MESSAGE);
+const app = express();
+
+app
+  .get('/', (req, res) => {
+    res.json({ message: 'Hello, World!' });
+  })
+  .listen(3000);
