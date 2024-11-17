@@ -12,7 +12,6 @@ const personSchema = z.object({
     ),
   nationality: z.string().min(1, 'La nacionalidad es obligatoria'),
   age: z.number().min(0, 'La edad debe ser un número positivo'),
-  canVote: z.boolean(),
 });
 
 export type Person = typeof personSchema._type;

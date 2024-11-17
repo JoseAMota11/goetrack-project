@@ -8,21 +8,12 @@ export class PeopleModel {
     fullName: string,
     dateOfBirth: string,
     nationality: string,
-    age: number,
-    canVote: boolean
+    age: number
   ) {
     const stmt =
-      db.prepare(`INSERT INTO people (name, surname, fullName, dateOfBirth, nationality, age, canVote) 
+      db.prepare(`INSERT INTO people (name, surname, fullName, dateOfBirth, nationality, age) 
       VALUES (?, ?, ?, ?, ?, ?, ?)`);
-    stmt.run(
-      name,
-      surname,
-      fullName,
-      dateOfBirth,
-      nationality,
-      age,
-      Number(canVote)
-    );
+    stmt.run(name, surname, fullName, dateOfBirth, nationality, age);
   }
 
   static findAll() {
@@ -37,7 +28,7 @@ export class PeopleModel {
 
   static update(id: number, data: Partial<Person>) {
     const stmt = db.prepare(
-      `UPDATE people SET name = ?, surname = ?, fullName = ?, dateOfBirth = ?, nationality = ?, age = ?, canVote = ? WHERE id = ?`
+      `UPDATE people SET name = ?, surname = ?, fullName = ?, dateOfBirth = ?, nationality = ?, age = ? WHERE id = ?`
     );
     const result = stmt.run(
       data.name,
@@ -46,7 +37,6 @@ export class PeopleModel {
       data.dateOfBirth,
       data.nationality,
       data.age,
-      Number(data.canVote),
       id
     );
 

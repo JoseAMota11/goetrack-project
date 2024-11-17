@@ -13,8 +13,7 @@ db.prepare(
     fullName TEXT NOT NULL,
     dateOfBirth TEXT NOT NULL,
     nationality TEXT NOT NULL,
-    age INTEGER NOT NULL,
-    canVote INTEGER NOT NULL
+    age INTEGER NOT NULL
   )
 `
 ).run();

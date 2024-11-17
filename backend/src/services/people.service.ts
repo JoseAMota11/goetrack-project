@@ -8,18 +8,9 @@ export class PeopleService {
     fullName: string,
     dateOfBirth: string,
     nationality: string,
-    age: number,
-    canVote: boolean
+    age: number
   ) {
-    PeopleModel.create(
-      name,
-      surname,
-      fullName,
-      dateOfBirth,
-      nationality,
-      age,
-      canVote
-    );
+    PeopleModel.create(name, surname, fullName, dateOfBirth, nationality, age);
   }
 
   static getAllPeople() {

@@ -2,16 +2,14 @@ import { Request, Response } from 'express';
 import { PeopleService } from '../services/people.service';
 
 export const createPerson = (req: Request, res: Response) => {
-  const { name, surname, fullName, dateOfBirth, nationality, age, canVote } =
-    req.body;
+  const { name, surname, fullName, dateOfBirth, nationality, age } = req.body;
   PeopleService.createPerson(
     name,
     surname,
     fullName,
     dateOfBirth,
     nationality,
-    age,
-    canVote
+    age
   );
 
   res.status(201).json({ message: 'Persona creada satisfactoriamente' });
@@ -39,7 +37,9 @@ export const updatePerson = (req: Request, res: Response) => {
   const result = PeopleService.updatePerson(Number(id), req.body);
 
   if (result > 0) {
-    res.status(204);
+    res
+      .status(200)
+      .json({ message: 'La persona ha sido actualizada satisfactoriamente' });
   } else {
     res.status(404).json({ error: 'Esta persona no existe' });
   }
@@ -50,7 +50,9 @@ export const deletePerson = (req: Request, res: Response) => {
   const result = PeopleService.deletePerson(Number(id));
 
   if (result > 0) {
-    res.status(204);
+    res
+      .status(200)
+      .json({ message: 'La persona ha sido eliminada satisfactoriamente' });
   } else {
     res.status(404).json({ error: 'Esta persona no existe' });
   }
