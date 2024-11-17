@@ -5,8 +5,10 @@ import {
   SetStateAction,
   useState,
 } from 'react';
-import getAllPeople from '../services/people.service';
+import { getAllPeople } from '../services/people.service';
 import { People } from '../types/people';
+import { message } from 'antd';
+import { MessageInstance } from 'antd/es/message/interface';
 
 type GlobalContextType = {
   data: People[] | undefined;
@@ -16,6 +18,7 @@ type GlobalContextType = {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
   getData: () => Promise<void>;
+  messageApi: MessageInstance;
 };
 
 export const globalContext = createContext<GlobalContextType | null>(null);
@@ -24,6 +27,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<People[]>();
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const getData = async () => {
     setLoading(true);
@@ -41,8 +45,18 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
 
   return (
     <globalContext.Provider
-      value={{ data, setData, error, setError, loading, setLoading, getData }}
+      value={{
+        data,
+        setData,
+        error,
+        setError,
+        loading,
+        setLoading,
+        getData,
+        messageApi,
+      }}
     >
+      {contextHolder}
       {children}
     </globalContext.Provider>
   );
