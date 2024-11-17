@@ -75,9 +75,16 @@ function TableContainer() {
 
   return (
     <Table
+      rowClassName={(record) =>
+        record.nationality === 'dominican' && record.age >= 18
+          ? 'bg-green-200/40'
+          : 'bg-red-200/40'
+      }
+      rowHoverable={false}
       columns={columns}
       dataSource={data}
       loading={loading}
+      size="small"
       rowKey={(record) => record.id}
     />
   );
