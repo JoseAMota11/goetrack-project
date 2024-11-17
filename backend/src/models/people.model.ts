@@ -12,7 +12,7 @@ export class PeopleModel {
   ) {
     const stmt =
       db.prepare(`INSERT INTO people (name, surname, fullName, dateOfBirth, nationality, age) 
-      VALUES (?, ?, ?, ?, ?, ?, ?)`);
+      VALUES (?, ?, ?, ?, ?, ?)`);
     stmt.run(name, surname, fullName, dateOfBirth, nationality, age);
   }
 
