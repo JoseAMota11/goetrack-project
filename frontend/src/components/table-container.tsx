@@ -86,6 +86,7 @@ function TableContainer() {
       loading={loading}
       size="small"
       rowKey={(record) => record.id}
+      pagination={false}
     />
   );
 }

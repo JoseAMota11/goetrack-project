@@ -19,6 +19,10 @@ type GlobalContextType = {
   setLoading: Dispatch<SetStateAction<boolean>>;
   getData: () => Promise<void>;
   messageApi: MessageInstance;
+  openAddModal: boolean;
+  setOpenAddModal: Dispatch<SetStateAction<boolean>>;
+  openEditModal: boolean;
+  setOpenEditModal: Dispatch<SetStateAction<boolean>>;
 };
 
 export const globalContext = createContext<GlobalContextType | null>(null);
@@ -28,6 +32,8 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const getData = async () => {
     setLoading(true);
@@ -54,6 +60,10 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
         setLoading,
         getData,
         messageApi,
+        openAddModal,
+        setOpenAddModal,
+        openEditModal,
+        setOpenEditModal,
       }}
     >
       {contextHolder}

@@ -1,4 +1,5 @@
 import config from '../config.json';
+import { People } from '../types/people';
 
 export async function getAllPeople<T>(): Promise<
   [T[] | undefined, Error | undefined]
@@ -15,6 +16,18 @@ export async function getAllPeople<T>(): Promise<
   } catch (error) {
     return [undefined, error as Error];
   }
+}
+
+export async function createPeople(body: People) {
+  const res = await fetch(`${config.url}/api/v1/people/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  return (await res.json()) as { message: string };
 }
 
 export async function deletePeopleById(

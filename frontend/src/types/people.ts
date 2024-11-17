@@ -6,5 +6,4 @@ export type People = {
   dateOfBirth: string;
   nationality: string;
   age: number;
-  canVote: boolean;
 };
