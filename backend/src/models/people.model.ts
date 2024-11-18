@@ -34,10 +34,6 @@ export class PeopleModel {
       conditions.push('nationality = @nationality');
       params.nationality = filters.nationality;
     }
-    if (filters.age) {
-      conditions.push('age LIKE @age');
-      params.fullName = `%${filters.age}%`;
-    }
 
     if (conditions.length > 0) {
       query += ' WHERE ' + conditions.join(' AND ');

@@ -32,7 +32,4 @@ export function isCustomError(error: unknown): error is ErrorValidation {
   return true;
 }
 
-export type Filters = Pick<
-  Person,
-  'fullName' | 'dateOfBirth' | 'nationality' | 'age'
->;
+export type Filters = Pick<Person, 'fullName' | 'dateOfBirth' | 'nationality'>;
