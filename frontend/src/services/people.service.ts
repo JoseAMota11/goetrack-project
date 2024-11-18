@@ -1,11 +1,26 @@
 import config from '../config.json';
+import { Filters } from '../types/filters';
 import { People } from '../types/people';
 
-export async function getAllPeople<T>(): Promise<
-  [T[] | undefined, Error | undefined]
-> {
+export async function getAllPeople<T>(
+  filters?: Filters
+): Promise<[T[] | undefined, Error | undefined]> {
   try {
-    const res = await fetch(`${config.url}/api/v1/people`);
+    const searchParams = new URLSearchParams('');
+
+    if (filters) {
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          searchParams.append(key, String(value));
+        }
+      }
+    }
+
+    const res = await fetch(
+      `${config.url}/api/v1/people${
+        filters ? `?${searchParams.toString()}` : ''
+      }`
+    );
 
     if (res.ok) {
       const data = await res.json();

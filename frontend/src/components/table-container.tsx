@@ -1,6 +1,6 @@
 import { Button, Table, TableProps, Tooltip } from 'antd';
 import { People } from '../types/people';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../hooks/fetch';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { deletePeopleById } from '../services/people.service';
@@ -13,6 +13,10 @@ function TableContainer() {
   const { messageApi } = useMessage();
   const { setOpen } = useOpenEditModal();
   const { setRecordId } = useRecordId();
+  const [dataFiltered, setDataFiltered] = useState(data);
+  const [tableFilters, setTableFilters] = useState<
+    'canVote' | 'cantVote' | 'default'
+  >('default');
 
   useEffect(() => {
     getData();
@@ -80,21 +84,56 @@ function TableContainer() {
     },
   ];
 
+  useEffect(() => {
+    if (tableFilters === 'canVote') {
+      setDataFiltered(() =>
+        data?.filter(
+          ({ nationality, age }) => nationality === 'dominican' && age >= 18
+        )
+      );
+    } else if (tableFilters === 'cantVote') {
+      setDataFiltered(() =>
+        data?.filter(
+          ({ nationality, age }) => nationality !== 'dominican' || age < 18
+        )
+      );
+    } else {
+      setDataFiltered(data);
+    }
+  }, [tableFilters, data]);
+
   return (
-    <Table
-      rowClassName={(record) =>
-        record.nationality === 'dominican' && record.age >= 18
-          ? 'bg-green-200/40'
-          : 'bg-red-200/40'
-      }
-      rowHoverable={false}
-      columns={columns}
-      dataSource={data}
-      loading={loading}
-      size="small"
-      rowKey={(record) => record.id}
-      pagination={false}
-    />
+    <>
+      <div className="mb-2 flex justify-end gap-2 *:w-[150px]">
+        <Button type="dashed" onClick={() => setTableFilters('canVote')}>
+          Mostrar votantes
+        </Button>
+        <Button type="dashed" onClick={() => setTableFilters('cantVote')}>
+          Mostrar no votantes
+        </Button>
+        <Button
+          type="dashed"
+          onClick={() => setTableFilters('default')}
+          disabled={tableFilters === 'default'}
+        >
+          Restablecer
+        </Button>
+      </div>
+      <Table
+        rowClassName={(record) =>
+          record.nationality === 'dominican' && record.age >= 18
+            ? 'bg-green-200/30 hover:bg-green-200/50 transition-colors'
+            : 'bg-red-200/30 hover:hover:bg-red-200/50 transition-colors'
+        }
+        rowHoverable={false}
+        columns={columns}
+        dataSource={dataFiltered}
+        loading={loading}
+        size="small"
+        rowKey={(record) => record.id}
+        pagination={false}
+      />
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import { getAllPeople } from '../services/people.service';
 import { People } from '../types/people';
 import { message } from 'antd';
 import { MessageInstance } from 'antd/es/message/interface';
+import { Filters } from '../types/filters';
 
 type GlobalContextType = {
   data: People[] | undefined;
@@ -17,7 +18,7 @@ type GlobalContextType = {
   setError: Dispatch<SetStateAction<Error | undefined>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  getData: () => Promise<void>;
+  getData: (filters?: Filters) => Promise<void>;
   messageApi: MessageInstance;
   openAddModal: boolean;
   setOpenAddModal: Dispatch<SetStateAction<boolean>>;
@@ -38,10 +39,10 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [recordId, setRecordId] = useState<number>();
 
-  const getData = async () => {
+  const getData = async (filters?: Filters) => {
     setLoading(true);
 
-    const [data, error] = await getAllPeople<People>();
+    const [data, error] = await getAllPeople<People>(filters);
 
     if (error) {
       setError(error);

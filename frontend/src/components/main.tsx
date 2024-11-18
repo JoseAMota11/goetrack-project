@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import TableContainer from './table-container';
 import { useOpenAddModal } from '../hooks/modal';
+import Filters from './filters';
 
 function Main() {
   const { setOpen } = useOpenAddModal();
@@ -15,6 +16,10 @@ function Main() {
         >
           Añadir
         </Button>
+      </section>
+      <section>
+        <h3 className="text-lg font-semibold">Filtros:</h3>
+        <Filters />
       </section>
       <section>
         <TableContainer />
