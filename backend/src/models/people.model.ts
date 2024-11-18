@@ -1,4 +1,5 @@
 import db from '../config/db';
+import { Filters } from '../utils/types';
 import { Person } from '../utils/validations';
 
 export class PeopleModel {
@@ -16,9 +17,36 @@ export class PeopleModel {
     stmt.run(name, surname, fullName, dateOfBirth, nationality, age);
   }
 
-  static findAll() {
-    const stmt = db.prepare('SELECT * FROM people ORDER BY ROWID DESC');
-    return stmt.all();
+  static findAll(filters: Filters) {
+    let query = 'SELECT * FROM people';
+    const conditions: string[] = [];
+    const params: any = {};
+
+    if (filters.fullName) {
+      conditions.push('fullName LIKE @fullName');
+      params.fullName = `%${filters.fullName}%`;
+    }
+    if (filters.dateOfBirth) {
+      conditions.push('dateOfBirth = @dateOfBirth');
+      params.dateOfBirth = filters.dateOfBirth;
+    }
+    if (filters.nationality) {
+      conditions.push('nationality = @nationality');
+      params.nationality = filters.nationality;
+    }
+    if (filters.age) {
+      conditions.push('age LIKE @age');
+      params.fullName = `%${filters.age}%`;
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' ORDER BY ROWID DESC';
+
+    const stmt = db.prepare(query);
+    return stmt.all(params);
   }
 
   static findById(id: number) {

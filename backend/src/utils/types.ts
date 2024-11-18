@@ -1,3 +1,5 @@
+import { Person } from './validations';
+
 export type ErrorValidation = {
   status: number;
   message: string;
@@ -29,3 +31,8 @@ export function isCustomError(error: unknown): error is ErrorValidation {
 
   return true;
 }
+
+export type Filters = Pick<
+  Person,
+  'fullName' | 'dateOfBirth' | 'nationality' | 'age'
+>;

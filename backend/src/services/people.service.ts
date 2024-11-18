@@ -1,4 +1,5 @@
 import { PeopleModel } from '../models/people.model';
+import { Filters } from '../utils/types';
 import { Person } from '../utils/validations';
 
 export class PeopleService {
@@ -13,8 +14,8 @@ export class PeopleService {
     PeopleModel.create(name, surname, fullName, dateOfBirth, nationality, age);
   }
 
-  static getAllPeople() {
-    return PeopleModel.findAll();
+  static getAllPeople(query: Filters) {
+    return PeopleModel.findAll(query);
   }
 
   static getPersonById(id: number) {

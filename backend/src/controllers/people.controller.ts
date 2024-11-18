@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { PeopleService } from '../services/people.service';
+import { Filters } from '../utils/types';
 
 export const createPerson = (req: Request, res: Response) => {
   const { name, surname, fullName, dateOfBirth, nationality, age } = req.body;
@@ -16,7 +17,9 @@ export const createPerson = (req: Request, res: Response) => {
 };
 
 export const getAllPeople = (req: Request, res: Response) => {
-  const people = PeopleService.getAllPeople();
+  const { query } = req;
+
+  const people = PeopleService.getAllPeople(query as any as Filters);
 
   res.status(200).json(people);
 };
