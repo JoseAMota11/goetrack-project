@@ -104,7 +104,7 @@ function TableContainer() {
 
   return (
     <>
-      <div className="mb-2 flex justify-end gap-2 *:w-[150px]">
+      <div className="mb-4 flex justify-end gap-2 *:w-[150px] max-[550px]:flex-col max-[550px]:*:w-full">
         <Button type="dashed" onClick={() => setTableFilters('canVote')}>
           Mostrar votantes
         </Button>
@@ -132,6 +132,7 @@ function TableContainer() {
         size="small"
         rowKey={(record) => record.id}
         pagination={false}
+        scroll={{ x: true }}
       />
     </>
   );
