@@ -10,18 +10,21 @@ import {
 } from 'antd';
 import { People } from '../types/people';
 import nationalities from '../nationalities.json';
-import { useOpenAddModal } from '../hooks/modal';
+import { useOpenEditModal } from '../hooks/modal';
 import useMessage from '../hooks/message';
-import { createPeople } from '../services/people.service';
+import { updatePeopleById, getOnePeopleById } from '../services/people.service';
 import useFetch from '../hooks/fetch';
 import { calculateAge } from '../utils/calculate-date';
-import { Dayjs } from 'dayjs';
+import { useEffect } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
+import useRecordId from '../hooks/id';
 
-function AddPeopleForm() {
-  const { open, setOpen } = useOpenAddModal();
+function EditPeopleForm() {
+  const { open, setOpen } = useOpenEditModal();
   const { messageApi } = useMessage();
   const { getData } = useFetch();
   const [form] = Form.useForm();
+  const { recordId } = useRecordId();
 
   const handleClose = () => {
     setOpen(false);
@@ -35,11 +38,33 @@ function AddPeopleForm() {
       ),
     };
 
-    const response = await createPeople(values);
-    messageApi.success(response.message);
-    getData();
-    handleClose();
+    const [message, error] = await updatePeopleById(recordId!, values);
+
+    if (message) {
+      messageApi.info(message.message);
+      getData();
+      handleClose();
+    } else {
+      messageApi.error(error?.error);
+    }
   };
+
+  useEffect(() => {
+    if (recordId) {
+      (async () => {
+        const [data] = await getOnePeopleById<People>(recordId);
+
+        if (data) {
+          const values = {
+            ...data,
+            dateOfBirth: dayjs(data.dateOfBirth, 'DD/MM/YYYY'),
+          };
+
+          form.setFieldsValue(values);
+        }
+      })();
+    }
+  }, [recordId]);
 
   return (
     <Modal
@@ -50,7 +75,7 @@ function AddPeopleForm() {
       destroyOnClose
     >
       <Form
-        name="add"
+        name="edit"
         form={form}
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -121,7 +146,7 @@ function AddPeopleForm() {
         <div className="flex justify-end items-center gap-4">
           <Button onClick={handleClose}>Cancelar</Button>
           <Button type="primary" htmlType="submit">
-            Añadir
+            Editar
           </Button>
         </div>
       </Form>
@@ -129,4 +154,4 @@ function AddPeopleForm() {
   );
 }
 
-export default AddPeopleForm;
+export default EditPeopleForm;

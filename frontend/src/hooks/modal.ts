@@ -7,7 +7,7 @@ export function useOpenAddModal() {
   if (context) {
     const { openAddModal, setOpenAddModal } = context;
 
-    return { openAddModal, setOpenAddModal };
+    return { open: openAddModal, setOpen: setOpenAddModal };
   } else {
     throw new Error(
       'useOpenAddModal can only be used inside the GlobalContext'
@@ -21,7 +21,7 @@ export function useOpenEditModal() {
   if (context) {
     const { openEditModal, setOpenEditModal } = context;
 
-    return { openEditModal, setOpenEditModal };
+    return { open: openEditModal, setOpen: setOpenEditModal };
   } else {
     throw new Error(
       'useOpenEditModal can only be used inside the GlobalContext'

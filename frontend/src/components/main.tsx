@@ -3,7 +3,7 @@ import TableContainer from './table-container';
 import { useOpenAddModal } from '../hooks/modal';
 
 function Main() {
-  const { setOpenAddModal } = useOpenAddModal();
+  const { setOpen } = useOpenAddModal();
 
   return (
     <main className="space-y-4 bg-white px-4 py-6 rounded-md shadow-md">
@@ -11,7 +11,7 @@ function Main() {
         <Button
           type="primary"
           className="w-[120px] h-10 text-base"
-          onClick={() => setOpenAddModal(true)}
+          onClick={() => setOpen(true)}
         >
           Añadir
         </Button>

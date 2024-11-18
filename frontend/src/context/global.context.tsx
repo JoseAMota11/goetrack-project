@@ -23,6 +23,8 @@ type GlobalContextType = {
   setOpenAddModal: Dispatch<SetStateAction<boolean>>;
   openEditModal: boolean;
   setOpenEditModal: Dispatch<SetStateAction<boolean>>;
+  recordId: number | undefined;
+  setRecordId: Dispatch<SetStateAction<number | undefined>>;
 };
 
 export const globalContext = createContext<GlobalContextType | null>(null);
@@ -34,6 +36,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [messageApi, contextHolder] = message.useMessage();
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [recordId, setRecordId] = useState<number>();
 
   const getData = async () => {
     setLoading(true);
@@ -64,6 +67,8 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
         setOpenAddModal,
         openEditModal,
         setOpenEditModal,
+        recordId,
+        setRecordId,
       }}
     >
       {contextHolder}

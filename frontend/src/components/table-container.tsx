@@ -5,10 +5,14 @@ import useFetch from '../hooks/fetch';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { deletePeopleById } from '../services/people.service';
 import useMessage from '../hooks/message';
+import { useOpenEditModal } from '../hooks/modal';
+import useRecordId from '../hooks/id';
 
 function TableContainer() {
   const { data, loading, getData } = useFetch();
   const { messageApi } = useMessage();
+  const { setOpen } = useOpenEditModal();
+  const { setRecordId } = useRecordId();
 
   useEffect(() => {
     getData();
@@ -48,7 +52,10 @@ function TableContainer() {
           <Tooltip title="Editar">
             <Button
               icon={<EditOutlined />}
-              onClick={() => console.log(record.id)}
+              onClick={() => {
+                setRecordId(record.id);
+                setOpen(true);
+              }}
             />
           </Tooltip>
           <Tooltip title="Eliminar" color="#ff4d4f">

@@ -1,4 +1,5 @@
 import AddPeopleForm from './components/add';
+import EditPeopleForm from './components/edit';
 import Main from './components/main';
 import Navbar from './components/navbar';
 
@@ -8,6 +9,7 @@ function App() {
       <Navbar />
       <Main />
       <AddPeopleForm />
+      <EditPeopleForm />
     </div>
   );
 }
