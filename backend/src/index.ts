@@ -6,11 +6,7 @@ const app = express();
 const port = 3000;
 
 // Middlewares
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/v1', peopleRoutes);
