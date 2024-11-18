@@ -3,7 +3,7 @@ import { z } from 'zod';
 const personSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
   surname: z.string().min(1, 'El apellido es obligatorio'),
-  fullName: z.string().min(1, 'El nombre completo es obligatorio'),
+  fullName: z.string().nullable(),
   dateOfBirth: z
     .string()
     .regex(

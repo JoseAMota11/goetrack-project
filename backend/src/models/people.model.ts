@@ -17,7 +17,7 @@ export class PeopleModel {
   }
 
   static findAll() {
-    const stmt = db.prepare('SELECT * FROM people');
+    const stmt = db.prepare('SELECT * FROM people ORDER BY ROWID DESC');
     return stmt.all();
   }
 
