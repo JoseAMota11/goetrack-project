@@ -79,7 +79,9 @@ function AddPeopleForm() {
           <Input
             onFocus={() => {
               const { name, surname } = form.getFieldsValue();
-              form.setFieldValue('fullName', `${name} ${surname}`);
+              if (name && surname) {
+                form.setFieldValue('fullName', `${name} ${surname}`);
+              }
             }}
           />
         </Form.Item>
