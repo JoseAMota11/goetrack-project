@@ -17,9 +17,7 @@ export async function getAllPeople<T>(
     }
 
     const res = await fetch(
-      `${config.url}/api/v1/people${
-        filters ? `?${searchParams.toString()}` : ''
-      }`
+      `${config.url}/people${filters ? `?${searchParams.toString()}` : ''}`
     );
 
     if (res.ok) {
@@ -37,7 +35,7 @@ export async function getOnePeopleById<T>(
   id: number
 ): Promise<[T | undefined, Error | undefined]> {
   try {
-    const res = await fetch(`${config.url}/api/v1/people/${id}`);
+    const res = await fetch(`${config.url}/people/${id}`);
 
     if (res.ok) {
       const data = await res.json();
@@ -51,7 +49,7 @@ export async function getOnePeopleById<T>(
 }
 
 export async function createPeople(body: People) {
-  const res = await fetch(`${config.url}/api/v1/people/`, {
+  const res = await fetch(`${config.url}/people/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -66,7 +64,7 @@ export async function deletePeopleById(
   id: number
 ): Promise<[{ message: string } | undefined, { error: string } | undefined]> {
   try {
-    const res = await fetch(`${config.url}/api/v1/people/${id}`, {
+    const res = await fetch(`${config.url}/people/${id}`, {
       method: 'DELETE',
     });
 
@@ -86,7 +84,7 @@ export async function updatePeopleById(
   body: People
 ): Promise<[{ message: string } | undefined, { error: string } | undefined]> {
   try {
-    const res = await fetch(`${config.url}/api/v1/people/${id}`, {
+    const res = await fetch(`${config.url}/people/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
