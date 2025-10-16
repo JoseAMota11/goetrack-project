@@ -57,6 +57,7 @@ function TableContainer() {
             <Button
               icon={<EditOutlined />}
               onClick={() => {
+                console.log(record.id);
                 setRecordId(record.id);
                 setOpen(true);
               }}

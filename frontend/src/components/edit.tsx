@@ -24,10 +24,11 @@ function EditPeopleForm() {
   const { messageApi } = useMessage();
   const { getData } = useFetch();
   const [form] = Form.useForm();
-  const { recordId } = useRecordId();
+  const { recordId, setRecordId } = useRecordId();
 
   const handleClose = () => {
     setOpen(false);
+    setRecordId(undefined);
   };
 
   const onFinish: FormProps<People>['onFinish'] = async (fieldsValue) => {
