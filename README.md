@@ -1,9 +1,9 @@
 
-# Geotrack Challenge
+# Sistema de Verificación de Elegibilidad para Votar
 
 ## Descripción
 
-Geotrack Challenge es un proyecto CRUD desarrollado completamente en TypeScript, con **Node.js** en el backend y **React.js** en el frontend. Este proyecto permite:
+Sistema de Verificación de Elegibilidad para Votar es un proyecto CRUD desarrollado completamente en TypeScript, con **Node.js** en el backend y **React.js** en el frontend. Este proyecto permite:
 
 - Mostrar, agregar, eliminar y editar personas en una tabla.
 - Filtrar personas según campos específicos.
